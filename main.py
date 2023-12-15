@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Response, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from controller.user import User
+from lib.check_password import check_user
 
 app  = FastAPI()
 template = Jinja2Templates(directory="./view")
@@ -23,9 +24,12 @@ def user(request: Request):
     return RedirectResponse(url = "/") 
     #template.TemplateResponse("user.html", {"request": request})
 @app.post("/user", response_class=HTMLResponse)
-def user(request: Request):
-    return RedirectResponse(url = "/") 
-    #template.TemplateResponse("user.html", {"request": request})
+def user(request: Request, username: str = Form(), password_user: str = Form()):
+    verify_user = check_user(username, password_user)
+    if verify_user:
+        return template.TemplateResponse("user.html", {"request": request, "data_user": verify_user})
+    return RedirectResponse(url = "/")
+   
 
 @app.post("/data-processing")
 def data_processing(firstname: str = Form(), lastname: str = Form(), username: str = Form(), password_user: str = Form()):

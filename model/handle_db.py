@@ -3,7 +3,7 @@ import sqlite3
 
 class HandleDB():
     def __init__(self):
-        self._con = sqlite3.connect("./users.db")
+        self._con = sqlite3.connect("./users.sqlite")
         self._cur = self._con.cursor()
     
     def get_all(self):

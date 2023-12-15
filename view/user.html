@@ -1,6 +1,6 @@
 {% extends "components/layout.html" %} {% block title %}Profile{% endblock %} {%
     block content %}
-      <div class="row m-sm-5 m-3">
+      <div id="titulo" class="row m-sm-5 m-3">
         <h1 class="col">FastAPI Profile User</h1>
       </div>
     
@@ -13,8 +13,13 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Firstname: <mark>{{ data_user[1] }}</mark></li>
             <li class="list-group-item">Lastname: <mark>{{ data_user[2] }}</mark></li>
-            <li class="list-group-item">Country: <mark>{{ data_user[4] }}</mark></li>
           </ul>
         </div>
       </div>
+
+      <style>
+        #titulo {
+          text-align: center;
+        }
+      </style>
     {% endblock %}

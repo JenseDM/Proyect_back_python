@@ -18,7 +18,11 @@ class User():
 
     def _add_id(self):
         user = self.db.get_all()
-        one_user = user[-1]
+        if not user:
+            self.data_user['id'] = "1"
+            return None
+        else:
+            one_user = user[-1]
         id_user = int(one_user[0])
         self.data_user['id'] = str(id_user + 1)
 
