@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from controller.user import User
 from lib.check_password import check_user
+from model.handle_db import HandleDB
 
 app  = FastAPI()
 template = Jinja2Templates(directory="./view")
@@ -30,7 +31,7 @@ def user(request: Request, username: str = Form(), password_user: str = Form()):
         return template.TemplateResponse("user.html", {"request": request, "data_user": verify_user})
     return RedirectResponse(url = "/")
    
-
+#endpoint para procesar los datos del formulario e insertarlos en la base de datos (insert)
 @app.post("/data-processing")
 def data_processing(firstname: str = Form(), lastname: str = Form(), username: str = Form(), password_user: str = Form()):
     
@@ -42,5 +43,18 @@ def data_processing(firstname: str = Form(), lastname: str = Form(), username: s
     }
     db = User(data_user)
     db.create_user()
+    return RedirectResponse(url="/signup", status_code=302)
 
-    return RedirectResponse(url="/", status_code=302)
+#se simula un metodo delete ya que los formularios solo soportan get y post
+@app.post("/delete_user")
+def delete_user(user_id: str = Form(...)):
+    db = HandleDB()
+    db.delete_user_by_id(user_id)
+    return RedirectResponse(url="/")  
+
+#se simula un metodo put ya que los formularios solo soportan get y post
+@app.post("/update_password")
+def update_password(user_id: str = Form(...), new_password: str = Form(...)):
+    db = HandleDB()
+    db.update_password_for_user(user_id, new_password)
+    return RedirectResponse(url="/")    

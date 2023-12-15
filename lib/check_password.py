@@ -1,6 +1,6 @@
 from model.handle_db import HandleDB
 from werkzeug.security import check_password_hash
-
+from fastapi.responses import RedirectResponse
 
 def check_user(username, password):
     user = HandleDB()
