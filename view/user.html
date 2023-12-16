@@ -1,74 +1,128 @@
-{% extends "components/layout.html" %} {% block title %}Profile{% endblock %} {%
-  block content %}
+{% extends "components/layout.html" %} 
+{% block title %}Profile{% endblock %} 
+{% block content %}
     <div id="titulo" class="row m-sm-5 m-3">
-      <h1 class="col">Profile User</h1>
+        <h1 class="col">Profile User</h1>
     </div>
   
     <div class="row justify-content-center">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Hi {{ data_user[3] }}</h5>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Firstname: {{ data_user[1] }}</li>
-            <li class="list-group-item">Lastname: {{ data_user[2] }}</li>
-          </ul>
-          <div class="text-center">
-            <form action="/update_password" method="post" id="updateForm">
-              <input type="hidden" name="_method" value="put">
-              <input type="hidden" name="user_id" value="{{ data_user[0] }}">
-              <div id="passwordInput" style="display: none;">
-                <div class="row g-3 align-items-center">
-                  <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label">New password</label>
-                  </div>
-                  <div class="col-auto">
-                    <input name="new_password" type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                  </div>
-                  <div class="col-auto">
-                    <span id="passwordHelpInline" class="form-text">
-                      please, write your new password.
-                    </span>
-                  </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Hi {{ data_user[3] }}</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Firstname: {{ data_user[1] }}</li>
+                    <li class="list-group-item">Lastname: {{ data_user[2] }}</li>
+                </ul>
+                <div class="text-center">
+                    <form action="/update_password" method="post" id="updateForm">
+                        <input type="hidden" name="_method" value="put">
+                        <input type="hidden" name="user_id" value="{{ data_user[0] }}">
+                        <div id="passwordInput" style="display: none;">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-auto">
+                                    <label for="inputPassword6" class="col-form-label">Current password</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input required name="current_password" type="password" id="inputCurrentPassword" class="form-control" aria-describedby="passwordHelpInline">
+                                </div>
+                                <div class="col-auto">
+                                    <span id="passwordHelpInline" class="form-text">
+                                        Please, enter your current password.
+                                    </span>
+                                </div>
+                            </div>
+                            <div id="newPasswordInput" style="display: none;">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-auto">
+                                        <label for="inputNewPassword" class="col-form-label">New password</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input required name="new_password" type="password" id="inputNewPassword" class="form-control" aria-describedby="newPasswordHelpInline">
+                                    </div>
+                                    <div class="col-auto">
+                                        <span id="newPasswordHelpInline" class="form-text">
+                                            Please, enter your new password.
+                                        </span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mx-auto" id="updateButton" style="display: none;">Confirm Update</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center" id="buttons">
+                        <button type="button" class="btn btn-primary" id="showUpdateButton">Update</button>
+                        <form action="/delete_user" method="post" id="deleteForm">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="user_id" value="{{ data_user[0] }}">
+                            <div id="passwordDeleteInput" style="display: none;">
+                              <div class="row g-3 align-items-center">
+                                <div class="col-auto">
+                                    <label for="inputPassword6" class="col-form-label">Current password</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input name="current_password" type="password" id="inputCurrentPassword" class="form-control" aria-describedby="passwordHelpInline">
+                                </div>
+                                <div class="col-auto">
+                                    <span id="passwordHelpInline" class="form-text">
+                                        Please, enter your current password.
+                                    </span>
+                                </div>
+                            </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary" id="deleteButton" onclick="showDeleteInput()">Delete</button>
+                                <button type="submit" class="btn btn-danger mx-auto" id="confirmDeleteButton" style="display: none;" onclick="showMessage('User deleted')">Confirm Deletion</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary" id="updateButton" onclick="showMessage('Changes saved successfully')">Confirm</button>
-              </div>
-            </form>
-            <div id="buttons">
-              <button type="button" class="btn btn-primary" id="showUpdateButton">Update</button>
-              <form action="/delete_user" method="post" id="deleteForm">
-                <input type="hidden" name="_method" value="delete">
-                <input type="hidden" name="user_id" value="{{ data_user[0] }}">
-                <button type="submit" class="btn btn-primary" onclick="showMessage('Deletion successful')">Delete</button>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
     <style>
-      #titulo {
-        text-align: center;
-      }
+        #titulo {
+            text-align: center;
+        }
 
-      form {
-        margin-top: 10px;
-      }
-      button {
-        margin-top: 10px;
-      }
+        form {
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 10px;
+        }
     </style>
 
     <script>
-      function showMessage(message) {
-        alert(message);
-      }
+        function showMessage(message) {
+            alert(message);
+        }
 
-      document.getElementById('showUpdateButton').addEventListener('click', function(event) {
-        event.preventDefault();
-        document.getElementById('passwordInput').style.display = 'block';
-        document.getElementById('showUpdateButton').style.display = 'none';
-        document.getElementById('deleteForm').style.display = 'none';
-      });
+        function showDeleteInput() {
+            document.getElementById('passwordDeleteInput').style.display = 'block';
+            document.getElementById('deleteButton').style.display = 'none';
+            document.getElementById('confirmDeleteButton').style.display = 'block';
+            document.getElementById('showUpdateButton').style.display = 'none'; // Oculta el botón de Update
+        }
+
+        function showUpdateInput() {
+            document.getElementById('passwordInput').style.display = 'block';
+            document.getElementById('showUpdateButton').style.display = 'none';
+            document.getElementById('deleteButton').style.display = 'none'; // Oculta el botón de Delete
+        }
+
+        document.getElementById('showUpdateButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            showUpdateInput();
+        });
+
+        document.getElementById('inputCurrentPassword').addEventListener('input', function(event) {
+            // Verifica si se ha ingresado la contraseña actual para mostrar el campo de la nueva contraseña
+            const currentPassword = event.target.value;
+            if (currentPassword.length > 0) {
+                document.getElementById('newPasswordInput').style.display = 'block';
+                document.getElementById('updateButton').style.display = 'block';
+            }
+        });
     </script>
-  {% endblock %}
+{% endblock %}

@@ -1,46 +1,30 @@
 {% extends "components/layout.html" %} 
 
-{% block title %}Sign up{% endblock %} 
+{% block title %}Home{% endblock %} 
+
 {% block content %}
-  <div class="row m-md-5 m-3">
-    <h1 class="Titulo" class="col">RegisterForm</h1>
+  <div class="row m-sm-5 m-3">
+    <h1 class="Titulo" class="col">Sign up</h1>
   </div>
-  <section class="row justify-content-center">
-    <form method="post" action="/data-processing" class="col-sm-3 col-10">
-      <div class="col-mb-3">
-        <label for="validationDefault01" class="form-label">First name</label>
-        <input name="firstname" type="text" class="form-control" id="validationDefault01" required />
-      </div>
-      <div class="col-mb-3 ">
-        <label for="validationDefault02" class="form-label">Last name</label>
-        <input name="lastname" type="text" class="form-control" id="validationDefault02" required />
-      </div>
-      <div class="col-mb-3 ">
-        <label for="validationDefaultUsername" class="form-label">Username</label>
-        <div class="input-group">
-          <span class="input-group-text" id="inputGroupPrepend2">@</span>
-          <input
-            name="username"
-            type="text"
-            class="form-control"
-            id="validationDefaultUsername"
-            aria-describedby="inputGroupPrepend2"
-            required
-          />
-        </div>
-      </div>
+
+  <section id="main_section" class="row justify-content-center">
+    <form method="post" action="/user" class="col-sm-3 col-10">
       <div class="mb-3">
-        <label for="validationDefault05" class="form-label">Password</label>
+        <label for="exampleInputUsername" class="form-label">Username</label>
         <input
-          name="password_user"
-          type="password"
+          name="username"
+          type="text"
           class="form-control"
-          id="validationDefault05"
+          id="exampleInputUsername"
           required
         />
       </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input name="password_user" type="password" class="form-control" id="exampleInputPassword1" required/>
+      </div>
       <div class="d-flex justify-content-center">
-        <button id="boton" class="btn btn-primary" type="submit">Submit</button>
+        <button id="boton" class="btn btn-primary">Ingresar</button>
       </div>
     </form>
   </section>
@@ -54,12 +38,12 @@
       font-size: 50px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .form-control{
-      width: 100%;
-    }
 
     #boton{
       width: 100%;
     }
+
+    
+    
   </style>
 {% endblock %}

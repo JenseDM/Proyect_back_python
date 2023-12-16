@@ -14,6 +14,10 @@ class HandleDB():
         data = self._cur.execute("SELECT * FROM users WHERE username = '{}'".format(data_user))
         return self._cur.fetchone()
 
+    def get_only_id(self, data_user):
+        data = self._cur.execute("SELECT * FROM users WHERE id = '{}'".format(data_user))
+        return self._cur.fetchone()
+
     def insert(self, data_user):
         self._cur.execute("INSERT INTO users VALUES ('{}', '{}', '{}', '{}', '{}')".format(
             data_user['id'],

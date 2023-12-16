@@ -10,3 +10,12 @@ def check_user(username, password):
         if same_passwword:
             return filter_user
     return None
+
+def check_user_id(user_id, password):
+    user = HandleDB()
+    filter_user = user.get_only_id(user_id)
+    if filter_user:
+        same_passwword = check_password_hash(filter_user[4], password)
+        if same_passwword:
+            return filter_user
+    return None
